@@ -1,0 +1,5 @@
+<% if @partial_name == 'movie_info_regular' %>
+    <%= render partial: "shared/movie_info_regular" %>
+<% else %>
+    <%= render partial: "shared/movie_info_admin" %>
+<% end %>

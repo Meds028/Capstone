@@ -1,0 +1,83 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+main.homepage{
+    width: 90%;
+    margin: auto;
+}
+
+div#carousel_main{
+    margin: 20px auto;
+    width: 70%;
+}
+    div.main_item img{
+        height: 70vh;
+        object-fit: cover;       
+        object-position: center; 
+    }
+    img.carousel_nav{
+        width: 150px;
+        display: block;
+        object-fit: cover;       
+        object-position: center; 
+    }
+    div.carousel-indicators button{
+        width: max-content!important;
+    }
+    div.carousel-indicators{
+        position: unset
+    }
+        div.carousel-indicators button img{
+            width: 25vh;
+            height: 15vh;
+            position: unset
+        }
+#top_pick{
+    margin: 200px 0 0 0;
+}
+    #top_pick a{
+        text-decoration: none;
+        color: black;
+    }
+    div.card{
+        display: inline-block;
+        width: 16%;
+    }
+    div.card-body{
+        text-align: start;
+    }
+        div.card-body h5.card-title{
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    div.carousel-inner{
+        margin: auto;
+        text-align: center;
+    }
+    button.prev_button {
+        background-color: rgba(155, 155, 155, 0.5);
+        width: 40px;
+        height: 50px;
+        border: 1px black solid;
+        border-radius: 5px;
+        margin: auto;
+    }
+    button.next_button {
+        background-color: rgba(155, 155, 155, 0.5);
+        width: 40px;
+        height: 50px;
+        border: 1px black solid;
+        border-radius: 5px;
+        margin: auto;
+    }
+
+#watchlist, #latest_movie, #top_rated_movies{
+    margin-top: 20px;
+    color: black;
+}
+    #watchlist a, #latest_movie a, #top_rated_movies a{
+        text-decoration: none;
+        color: black;
+    }

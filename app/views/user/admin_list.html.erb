@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="<%= asset_path('admin_list.css') %>" rel="stylesheet">
+</head>
+<body>
+<% if current_user.user_type == 0 %>
+<%= render partial: "shared/nav" %>
+<% elsif current_user.user_type == 1 %>
+<%= render partial: "shared/nav_admin" %>
+<% else %>
+<%= render partial: "shared/nav_super_admin" %>
+<% end %>
+
+    <main id="profile">
+        <div class="edit">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#firstName" data-bs-whatever="@mdo">Add Admin</button>
+            <div class="modal fade" id="firstName" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="modal-body">
+                            <form action='add_admin' method='post'>
+                                <div class="mb-3">
+                                    <label for="recipient-name" class="col-form-label">Email:</label>
+                                    <input type="text" class="form-control" id="recipient-name" name="user[email]">
+                                    <div class="input-group mb-3">
+                                        <label for="adds" class="input-group-text">Admin type</label>
+                                        <select id="adds" name="user[user_type]" class="form-control">
+                                            <option value=1>Admin</option>
+                                            <option value=2>Super admin</option>
+                                        </select>
+                                    </div>
+                                    <div class="modal_btn">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <input type="submit" class="btn btn-primary" value="Save">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="remove_admin">
+
+        <% if flash[:alert].present? %>
+            <div class="alert alert-danger errors">
+                <p><%= flash[:alert] %></p>
+            </div>
+        <% end %>
+
+        <% if flash[:notice].present? %>
+            <div class="alert alert-success errors">
+                <p><%= flash[:notice] %></p>
+            </div>
+        <% end %>
+
+            <h1>Admins</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Admin Type</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @admins.each do |admin| %>
+                        <tr>
+                            <td><%= admin.first_name %> <%= admin.last_name %></td>
+                            <td><%= admin.email %></td>
+                            <td>
+                            <%  if admin.user_type == 1 %>
+                                    <%= "Admin" %>
+                            <%  else %>
+                                    <%= "Super Admin" %>
+                            <%  end %>
+                            </td>
+                            <td class="remove_action">
+                                <form action='remove_admin' method='post'>
+                                    <input type="hidden" name="user[email]" value="<%= admin.email %>">
+                                    <input class="btn btn-danger remove" type="submit" value="Remove">
+                                </form>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

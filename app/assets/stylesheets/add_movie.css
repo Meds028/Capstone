@@ -1,0 +1,67 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+}
+form#register_form{
+    margin: 25px auto 0 auto;
+    width: 60%;
+    padding-right: 50px;
+}
+
+textarea#inputSummary{
+    resize: none;
+    height: 225px;
+    overflow-y: auto;
+}
+
+div.errors{
+    text-align: center;
+}
+    .dropdown_country{
+        display: inline-block;
+    }
+        .dropdown_country button{
+            border: none;
+            cursor: pointer;
+            background-color: white;
+            font-size: 20px;
+        }
+
+        .dropdown_country a{
+            display: block;
+            color: black;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 15px;
+            text-align: center;
+        }
+    .dropdown_country .country{
+        display: none;
+        position: absolute;
+        width: 560px;
+        box-shadow: 2px 2px 5px hsla(0, 0%, 0%, 0.8);
+        border-radius: 5px;
+        z-index: 2;
+        background-color: white;
+    }
+        .input-group-text:hover .country{
+            display: block;
+        }
+        .dropdown_country:hover button{
+            color: rgb(61, 61, 61);;
+        }
+        .dropdown_country a:hover{
+            background-color: hsl(0, 0%, 90%);
+            border-radius: 5px;
+        }
+
+    span.input-group-text{
+        background-color: white;
+    }
+    select#select_country{
+        height: 30px;
+        width: 100%;
+        cursor: pointer;
+        border: none;
+    }

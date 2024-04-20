@@ -1,0 +1,20 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+main#browse_movies{
+    width: 80%;
+    margin: 50px auto 0 auto;
+    text-align: center;
+}
+div.card{
+    display: inline-block;
+    margin: 10px;
+    width: 180px;
+}
+div.card-body{
+    font-size: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

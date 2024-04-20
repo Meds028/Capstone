@@ -1,0 +1,57 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+main#profile{
+    width: 80%;
+    margin: 50px auto 0 auto;
+}
+
+    div.edit{
+        margin: 15px 0 50px 0;
+    }
+            div.modal-content{
+                font-size: 25px;
+            }
+            button.btn-close{
+                margin: 0 0 0 auto;
+            }
+            .form-control{
+                padding: 10px 20px;
+                height: 61px;
+            }
+            div.input-group{
+                margin-top: 10px;
+            }
+            div.modal_btn{
+                margin-top: 25px;
+                text-align: end;
+            }
+                button.btn, input.btn{
+                    height: 61px;
+                    vertical-align: top;
+                    font-size: 25px;
+                }
+
+    div#remove_admin table{
+        border: 1px solid black;
+        width: 100%;
+    }
+        div#remove_admin table th, td{
+            border: 1px solid black;
+            font-size: 25px;
+            vertical-align: middle;
+        }
+        div#remove_admin table td{
+            border: 1px solid black;
+            font-size: 25px;
+            vertical-align: middle;
+        }
+        div#remove_admin table td.remove_action{
+            text-align: center;
+        }
+        div#remove_admin table td input.remove{
+            width: 100px;
+            height: 40px;
+            font-size: 18px;
+        }

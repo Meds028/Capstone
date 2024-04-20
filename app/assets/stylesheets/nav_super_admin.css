@@ -1,0 +1,100 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+nav{
+    padding: 15px 40px;
+    border-bottom: 3px solid grey;
+}
+div#nav_logo{
+    width: 24%;
+    display: inline-block;
+}
+    div#nav_logo h2{
+        display: inline-block;
+        padding: 0 10px;
+        color: black;
+    }
+    div#nav_logo a.add_movies h2{
+        display: inline-block;
+        padding: 0 10px;
+        margin-left: 10px;
+        color: black;
+    }
+    div#nav_logo a.add_movies h2:hover{
+        color: rgb(61, 61, 61);
+    }
+
+div#search_bar{
+    width: 48%;
+    display: inline-block;
+}
+    div#search_bar form.search_bar{
+        width: 90%;
+        display: inline-block;
+    }
+        div#search_bar form input.search{
+            width: 100%;
+            padding: 0 20px;
+            height: 45px;
+            border-radius: 10px;
+            font-size: 25px;
+        }
+    div#search_bar img.search_logo{
+        height: 45px;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+div#nav_user{
+    width: 24%;
+    display: inline-block;
+    text-align: right;
+}
+    div#nav_user a h2{
+        display: inline-block;
+        padding: 0 20px 0 0;
+        color: black;
+        border-right: 3px solid black;
+    }
+    div#nav_user a h2:hover{
+        color: rgb(61, 61, 61);
+    }
+
+    .dropdown{
+        display: inline-block;
+    }
+        .dropdown button{
+            border: none;
+            cursor: pointer;
+            background-color: white;
+            padding: 0 0 0 20px;
+            font-size: 30px;
+        }
+        .dropdown a, h6{
+            display: block;
+            color: black;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 30px;
+            text-align: center;
+        }
+        .dropdown .content{
+            display: none;
+            position: absolute;
+            min-width: 100px;
+            box-shadow: 2px 2px 5px hsla(0, 0%, 0%, 0.8);
+            border-radius: 5px;
+            z-index: 2;
+            background-color: white;
+        }
+        .dropdown:hover .content{
+            display: block;
+        }
+        .dropdown:hover button{
+            color: rgb(61, 61, 61);;
+        }
+        .dropdown a:hover{
+            background-color: hsl(0, 0%, 90%);
+            border-radius: 5px;
+        }

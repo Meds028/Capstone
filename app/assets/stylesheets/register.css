@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+}
+form#register_form{
+    margin: 25px auto 0 auto;
+    width: 40%;
+    padding-right: 50px;
+}
+
+div.errors{
+    text-align: center;
+}
