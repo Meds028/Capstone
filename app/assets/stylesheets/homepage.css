@@ -4,7 +4,7 @@
 }
 main.homepage{
     width: 90%;
-    margin: auto;
+    margin: 0 auto 50px auto;
 }
 
 div#carousel_main{

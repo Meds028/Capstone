@@ -19,14 +19,16 @@ Rails.application.routes.draw do
   post "add/rate", to: "website#add_rate", as: "add_rate"
   post "add/genre", to: "website#add_genre", as: "add_genre"
   post "remove/genre", to: "website#remove_genre", as: "remove_genre"
+  post "delete/movie", to: "website#delete_movie", as: "delete_movie"
 
   post "add/cast", to: "website#add_cast", as: "add_movie_cast"
   post "add/artist", to: "website#add_artist", as: "add_artist"
   post "remove/artist", to: "website#remove_artist", as: "remove_artist"
 
   get "home" => "website#homepage"
-  get "browse/:param" => "website#browse"
+  get "browse/:param", to: "website#browse", as: "browse"
   get "watchlist" => "website#watchlist"
+  get "rated" => "website#rated"
   get "info/:id", to: "website#movie_info", as: "movie_info"
   post "watchlist/add_movie", to: "website#add_watchlist", as: "add_watchlist"
   post "watchlist/remove_movie", to: "website#remove_watchlist", as: "remove_watchlist"

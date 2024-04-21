@@ -16,6 +16,11 @@
                 <% end %>
             </div>
         <% end %>
+        <% if flash[:notice].present? %>
+            <div class="alert alert-success errors">
+                <p><%= flash[:notice] %></p>
+            </div>
+        <% end %>
 
         <div class="mb-3 row">
             <label for="inputFirstname" class="col-sm-3 col-form-label">Firstname</label>

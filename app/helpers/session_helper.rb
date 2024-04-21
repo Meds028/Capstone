@@ -25,7 +25,5 @@ module SessionHelper
         user == current_user
     end
 
-    def deny_access 
-        redirect_to login_path, :notice => "Please sign in."
-    end
+
 end

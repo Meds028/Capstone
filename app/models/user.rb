@@ -2,6 +2,7 @@ class User < ApplicationRecord
     has_many :watchlists
     has_many :ratings
     has_many :movies, through: :watchlists
+    has_many :movies, through: :ratings
 
     EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]+)\z/i
     validates :first_name, presence: true, length: { in: 3..45 }

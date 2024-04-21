@@ -17,9 +17,9 @@
 <% end %>
     
     <main id="list">
-        <h2>Watchlist</h2>
-        <% if @watchlist_movies.present? %>
-            <% @watchlist_movies.each do |movie| %>
+        <h2>Rated</h2>
+        <% if @rated_movies.present? %>
+            <% @rated_movies.each do |movie| %>
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="list_card_img">
@@ -30,19 +30,13 @@
                             <a href="<%= movie_info_path(movie.id) %>"><h1 class="card-title"><%= movie.title %></h1></a>
                             <p class="card-text"><%= movie.summary %></p>
                             <p class="card-text"><small class="text-body-secondary">Added <%= formatted_date_ago(@added_dates[movie.id]&.first&.created_at) %></small></p>
-                            <div class="watchlist_btn">
-                                <form action="<%= remove_watchlists_path %>" method="post">
-                                    <input type="hidden" name="movie[movie_id]" value=<%= movie.id %>>
-                                    <input class="btn btn-danger" type="submit" value="Remove from watchlist">
-                                </form>                            
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <% end %>
         <% else %>
-            <p>No movies in the watchlist.</p>
+            <p>No rated movies.</p>
         <% end %>
     </main>
 

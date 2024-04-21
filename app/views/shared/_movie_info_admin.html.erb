@@ -180,6 +180,12 @@
                     </div>
                 </div>
             </div>
+            <div class="remove_movie">
+                <form action="<%= delete_movie_path %>" method="post">
+                    <input type="hidden" name="movie[movie_id]" value=<%= @movie.id %>>
+                    <input class="btn btn-danger" type="submit" value="Remove">
+                </form>
+            </div>
         </div>
 
         <div class="info">

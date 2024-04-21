@@ -28,6 +28,10 @@ main#list{
             white-space: nowrap;
             text-overflow: ellipsis;
         }
+            div.card-body a{
+                text-decoration: none;
+                color: black;
+            }
         div.watchlist_btn{
             text-align: end;
         }

@@ -1,4 +1,6 @@
 class UserController < ApplicationController
+  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]+)\z/i
+  
   def register
     @user = User.new
   end
@@ -14,7 +16,7 @@ class UserController < ApplicationController
     @user.user_type = user_type
 
     if @user.save
-      redirect_to login_path, notice: 'User was successfully created. Please log in.'
+      redirect_to register_path, notice: 'User was successfully created. Please log in.'
     else
       flash[:alert] = @user.errors.full_messages
       redirect_to register_path
@@ -29,7 +31,7 @@ class UserController < ApplicationController
     user = User.find_by(email: user_params[:email])
   
     if user.nil?
-      flash[:alert] = "Invalid email"
+      flash[:alert] = "Email not found"
     else
   
       if user.update_column(:user_type, user_params[:user_type])
@@ -90,7 +92,28 @@ class UserController < ApplicationController
       redirect_to profile_path
     end
   end
-  
+
+  def change_email
+    user = User.find(session[:user_id])
+    new_email = user_params[:email]
+
+    if new_email.length.between?(3, 45) && new_email =~ EMAIL_REGEX
+      if User.where.not(id: user.id).where(email: new_email).exists?
+        flash[:alert] = 'Email already in use'
+        redirect_to profile_path
+        return
+      end
+
+      user.update_columns(email: new_email)
+      flash[:notice] = 'Profile updated successfully'
+      redirect_to profile_path
+    else
+      user.errors.add(:email, "must be between 3 and 45 characters and have a valid format")
+      flash[:alert] = user.errors.full_messages
+      redirect_to profile_path
+    end
+  end
+
   def change_password
     user = User.find(session[:user_id])
     old_password = user_params[:password]

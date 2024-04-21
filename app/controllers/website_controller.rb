@@ -1,10 +1,15 @@
 class WebsiteController < ApplicationController
   def homepage
+    unless session[:user_id].present?
+      redirect_to login_path, alert: 'Access denied. Please log in.'
+      return
+    end
+    
     user = User.find(session[:user_id])
     @carousel_movies = Movie.order(release_year: :desc, created_at: :desc).limit(6)
     @latest_movies = Movie.order(release_year: :desc, created_at: :desc).limit(18)
     @top_picks = Movie.joins(:watchlists).group('movies.id').order('COUNT(watchlists.id) DESC').limit(18)
-    @watchlist_movies = user.movies.limit(18)
+    @watchlist_movies = Movie.joins(:watchlists).where(watchlists: { user_id: session[:user_id] })
 
     @top_rated_movies = Movie.all
     @top_rated_movies.each do |movie|
@@ -14,12 +19,23 @@ class WebsiteController < ApplicationController
   end
 
   def browse
+    unless session[:user_id].present?
+      redirect_to login_path, alert: 'Access denied. Please log in.'
+      return
+    end
+
     if params[:param] == "top_picks"
       @movies = Movie.joins(:watchlists).group('movies.id').order('COUNT(watchlists.id) DESC')
       render 'browse'
     elsif params[:param] == "lastest"
       @movies = Movie.order(release_year: :desc, created_at: :desc)
       render 'browse'
+    elsif params[:param] == "top_rated"
+      @movies = Movie.all
+      @movies.each do |movie|
+        movie.average_rating = movie.ratings.average(:rate)
+      end
+      @movies = @movies.sort_by { |movie| -movie.average_rating.to_f }
     else
       @movies = Movie.all
       render 'browse'
@@ -33,9 +49,24 @@ class WebsiteController < ApplicationController
   end
 
   def watchlist
-    user = User.find(session[:user_id])
-    @watchlist_movies = user.movies
+    unless session[:user_id].present?
+      redirect_to login_path, alert: 'Access denied. Please log in.'
+      return
+    end
+  
+    @watchlist_movies = Movie.joins(:watchlists).where(watchlists: { user_id: session[:user_id] })
     @added_dates = Watchlist.where(user_id: session[:user_id]).group_by(&:movie_id)
+  end
+
+  def rated
+    unless session[:user_id].present?
+      redirect_to login_path, alert: 'Access denied. Please log in.'
+      return
+    end
+
+    user = User.find(session[:user_id])
+    @rated_movies = user.movies
+    @added_dates = Rating.where(user_id: session[:user_id]).group_by(&:movie_id)
   end
 
   def add_watchlist
@@ -76,6 +107,11 @@ class WebsiteController < ApplicationController
   end
 
   def movie_info
+    unless session[:user_id].present?
+      redirect_to login_path, alert: 'Access denied. Please log in.'
+      return
+    end
+
     @watchlist = Watchlist.find_by(movie_id: params[:id], user_id: session[:user_id])
     @movie = Movie.find(params[:id])
     @latest_movies = Movie.order(release_year: :desc, created_at: :desc).limit(21)
@@ -91,11 +127,6 @@ class WebsiteController < ApplicationController
     else
       @partial_name = 'movie_info_admin'
     end
-  end
-
-  def movie_info_regular
-  end
-  def movie_info_admin
   end
   
   def add_movie
@@ -113,6 +144,12 @@ class WebsiteController < ApplicationController
       flash[:alert] = @movie.errors.full_messages
       redirect_to add_movies_path
     end
+  end
+
+  def delete_movie
+    movie = Movie.find(movie_params[:movie_id])
+    movie.destroy
+    redirect_to home_path
   end
 
   def change_title
@@ -260,7 +297,6 @@ class WebsiteController < ApplicationController
     redirect_to movie_info_path(id: genre_params[:movie_id])
   end
   
-  
   def remove_genre
     movie_genre = MovieGenre.find_by(id: genre_params[:saved_genre_id])
   
@@ -272,8 +308,6 @@ class WebsiteController < ApplicationController
   
     redirect_to movie_info_path(genre_params[:movie_id])
   end
-  
-  
 
   private
 
@@ -297,41 +331,3 @@ class WebsiteController < ApplicationController
     params.require(:genre).permit(:type)
   end
 end
-
-
-# <div id="top_rated_movies">
-#             <a href="#"><h1>Top Rated</h1></a>
-#             <div id="top_rate" class="carousel slide carousel-dark" data-bs-ride="carousel">
-#                 <div class="carousel-inner">
-#                     <% @top_rated_movies.each_slice(6).with_index do |movies_slice, index| %>
-#                         <div class="carousel-item <%= index == 0 ? 'active' : '' %>" data-bs-interval="5000">
-#                             <div class="row">
-#                                 <% movies_slice.each do |movie| %>
-#                                     <div class="col-md-4">
-#                                         <div class="card">
-#                                             <img src="<%= movie.poster %>" class="card-img-top" alt="<%= movie.title %>">
-#                                             <div class="card-body">
-#                                                 <h5 class="card-title"><%= movie.title %></h5>
-#                                                 <p class="card-text">Release Year: <%= movie.release_year %></p>
-#                                                 <p class="card-text">Summary: <%= movie.summary %></p>
-#                                                 <p class="card-text">Average Rating: <%= movie.average_rating&.round(1) || 'N/A' %></p>
-#                                                 <a href="#" class="btn btn-primary">Go somewhere</a>
-#                                             </div>
-#                                         </div>
-#                                     </div>
-#                                 <% end %>
-#                             </div>
-#                         </div>
-#                     <% end %>
-#                 </div>
-                
-#                 <button class="carousel-control-prev prev_button" type="button" data-bs-target="#top_rate" data-bs-slide="prev">
-#                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-#                     <span class="visually-hidden">Previous</span>
-#                 </button>
-#                 <button class="carousel-control-next next_button" type="button" data-bs-target="#top_rate" data-bs-slide="next">
-#                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-#                     <span class="visually-hidden">Next</span>
-#                 </button>
-#             </div>
-#         </div>

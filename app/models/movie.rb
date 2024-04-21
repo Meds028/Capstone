@@ -1,11 +1,12 @@
 class Movie < ApplicationRecord
-  has_many :watchlists
-  has_many :ratings
-  has_many :movie_genres
+  has_many :watchlists, dependent: :destroy
+  has_many :ratings, dependent: :destroy
+  has_many :movie_genres, dependent: :destroy
   has_many :genres, through: :movie_genres
-  has_many :casts
-  has_many :artists, through: :casts
-  belongs_to :country
+  has_many :casts, dependent: :destroy
+  has_many :artists, through: :casts, dependent: :destroy
+  has_many :users, through: :ratings, dependent: :destroy
+  belongs_to :country, dependent: :destroy
 
   validates :title, presence: true, length: { minimum: 6 }
   validates :release_year, presence: true, length: { is: 4 }, format: { with: /\A\d{4}\z/, message: "only allows numbers" }

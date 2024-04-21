@@ -22,7 +22,7 @@
 <body>
     <nav>
         <div id="nav_logo">
-            <a href="<%= home_path %>"><h2>LOGO</h2></a>
+            <a href="<%= home_path %>"><img src="<%= asset_path('mylogo.png') %>" alt="logo"></a>
         </div>
 
         <div id="search_bar">
@@ -41,8 +41,8 @@
                     <h6>Hi! <%= current_user.first_name %></h6>
                     <a href="<%= profile_path %>">Profile</a>
                     <a href="<%= watchlist_path %>">Watchlist</a>
-                    <a href="browse/browse">Browse</a>
-                    <a href="">Rating</a>
+                    <a href="<%= browse_path('all') %>">Browse</a>
+                    <a href="<%= rated_path %>">Rating</a>
                     <a href="<%= signout_path %>">Logout</a>
                 </div>
             </div>

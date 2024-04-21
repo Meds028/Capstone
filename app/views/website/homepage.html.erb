@@ -48,7 +48,7 @@
         </div>
 
         <div id="top_pick">
-            <a href="browse/top_picks"><h1>Top picks</h1></a>
+            <a href="<%= browse_path('top_picks') %>"><h1>Top picks</h1></a>
             <div id="top_picks" class="carousel slide carousel-dark" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <% @top_picks.each_slice(6).with_index do |movies_slice, index| %>
@@ -60,7 +60,6 @@
                                         <div class="card-body">
                                             <h5 class="card-title"><%= movie.title %></h5>
                                             <p class="card-text"><%= movie.release_year %></p>
-                                            <a href="<%= movie_info_path(movie.id) %>" class="btn btn-primary">Movie Info</a>
                                         </div>
                                     </div>
                                 </a>
@@ -93,7 +92,6 @@
                                         <div class="card-body">
                                             <h5 class="card-title"><%= movie.title %></h5>
                                             <p class="card-text"><%= movie.release_year %></p>
-                                            <a href="<%= movie_info_path(movie.id) %>" class="btn btn-primary">Movie Info</a>
                                         </div>
                                     </div>
                                 </a>
@@ -114,7 +112,7 @@
         </div>
 
         <div id="latest_movie">
-            <a href="browse/latest"><h1>Latest</h1></a>
+            <a href="<%= browse_path('latest_movie') %>"><h1>Latest</h1></a>
             <div id="latest_movies" class="carousel slide carousel-dark" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <% @latest_movies.each_slice(6).with_index do |movies_slice, index| %>
@@ -126,7 +124,6 @@
                                         <div class="card-body">
                                             <h5 class="card-title"><%= movie.title %></h5>
                                             <p class="card-text"><%= movie.release_year %></p>
-                                            <a href="<%= movie_info_path(movie.id) %>" class="btn btn-primary">Movie Info</a>
                                         </div>
                                     </a>
                                 </div>
@@ -147,7 +144,7 @@
         </div>
 
         <div id="top_rated_movies">
-            <a href="browse/latest"><h1>Latest</h1></a>
+            <a href="<%= browse_path('top_rated') %>"><h1>Top rated</h1></a>
             <div id="top_rate" class="carousel slide carousel-dark" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <% @top_rated_movies.each_slice(6).with_index do |movies_slice, index| %>
@@ -159,7 +156,6 @@
                                         <div class="card-body">
                                             <h5 class="card-title"><%= movie.title %></h5>
                                             <p class="card-text"><%= movie.release_year %></p>
-                                            <a href="<%= movie_info_path(movie.id) %>" class="btn btn-primary">Movie Info</a>
                                         </div>
                                     </a>
                                 </div>

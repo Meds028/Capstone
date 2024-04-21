@@ -113,6 +113,9 @@ div.container{
         div.edit_movie_info{
             display: inline-block;
         }
+        div.remove_movie{
+            display: inline-block;
+        }
 
         div.add_casts{
             display: inline-block;
